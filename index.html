@@ -23,7 +23,7 @@
     
     document.getElementById('waId').innerHTML = waId
     document.getElementById('isCompliant').innerHTML = `User is ${isCompliant ? '' : 'NOT'} complying to the quarantine order`
-    document.getElementById('lastSeen').innerHTML = Date(lastSeenAt)
+    document.getElementById('lastSeen').innerHTML = new Date(parseInt(lastSeenAt))
   }
 });
 </script>
