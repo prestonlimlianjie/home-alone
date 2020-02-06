@@ -1,0 +1,29 @@
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Home Alone</h1>
+  <input placeholder="Type WhatsApp number" id="inputBox"/>
+  <p id="waId"></p>
+  <p id="isCompliant"></p>
+  <p id="lastSeen"></p>
+</body>
+
+<script>
+  let inputElem = document.getElementById('inputBox')
+  inputElem.addEventListener("keyup", async(event) => {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+   
+    const value = inputElem.value
+    const resp = await axios.get(`https://sqkp3sp043.execute-api.ap-southeast-1.amazonaws.com/staging/statuses?wa_id=${value}`)
+    const {wa_id: waId, last_seen_at: lastSeenAt, is_compliant: isCompliant} = resp.data
+    
+    document.getElementById('waId').innerHTML = waId
+    document.getElementById('isCompliant').innerHTML = `User is ${isCompliant ? '' : 'NOT'} complying to the quarantine order`
+    document.getElementById('lastSeen').innerHTML = Date(lastSeenAt)
+  }
+});
+</script>
